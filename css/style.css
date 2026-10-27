@@ -1,0 +1,147 @@
+/* Tinta Mía · «Kakemono»: los tatuajes cuelgan como pergaminos japoneses de un clavo y se balancean; laca negra, papel washi y bermellón */
+:root {
+  --lac: #0e0c0b; --sumi: #191614; --washi: #eee2cb; --washi-2: #d9c9a9; --shu: #d8431f; --teal: #2f7c72; --mute: #a39a8c; --line: #eee2cb1f;
+  --f-d: "Teko", "Oswald", Impact, sans-serif; --f-b: "Volkhov", Georgia, serif;
+  --ease: cubic-bezier(.16, 1, .3, 1); --pad: clamp(16px, 5vw, 80px);
+  --c-bg: var(--lac); --c-card: var(--sumi); --c-ink: var(--washi); --c-mute: var(--mute); --c-line: var(--line); --c-acc: var(--shu); --c-acc-ink: var(--washi);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--lac); color: var(--washi); font: 400 17px/1.7 var(--f-b); -webkit-font-smoothing: antialiased; overflow-x: hidden; --grain: .06; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+::selection { background: var(--shu); color: var(--washi); }
+:focus-visible { outline: 2px solid var(--shu); outline-offset: 3px; }
+.skip { position: absolute; left: 12px; top: -60px; z-index: 100; padding: 10px 16px; background: var(--washi); color: var(--lac); }
+.skip:focus { top: 12px; }
+h1, h2, h3 { margin: 0; font-weight: 500; }
+h2, h3 { font-family: var(--f-d); line-height: .9; text-transform: uppercase; letter-spacing: .01em; }
+h2 { font-size: clamp(56px, 7.6vw, 128px); }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 4px 26px 0; background: var(--shu); color: var(--washi); border: 1px solid var(--shu); text-decoration: none; font: 500 22px/1 var(--f-d); letter-spacing: .06em; text-transform: uppercase; }
+.btn-line { background: none; border-color: #eee2cb59; color: var(--washi); }
+.btn-sm { min-height: 40px; padding: 3px 16px 0; font-size: 18px; }
+@media (hover: hover) and (pointer: fine) { .btn { transition: background .35s, color .35s, border-color .35s; } .btn:hover { background: var(--washi); border-color: var(--washi); color: var(--lac); } }
+.link { display: inline-block; margin-top: 40px; color: var(--washi); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; font: 500 22px/1 var(--f-d); letter-spacing: .06em; text-transform: uppercase; }
+
+/* ---------- cabecera ---------- */
+.top { position: fixed; z-index: 50; inset: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px var(--pad); transition: background .4s, translate .6s var(--ease); }
+.top.solid { background: #0e0c0be6; backdrop-filter: blur(14px); }
+.top.hide { translate: 0 -100%; }
+.brand { display: flex; align-items: baseline; gap: 8px; text-decoration: none; font: 600 32px/1 var(--f-d); text-transform: uppercase; letter-spacing: .02em; }
+.brand small { font-size: 16px; color: var(--shu); letter-spacing: .14em; }
+.nav { display: flex; gap: 28px; }
+.nav a { text-decoration: none; font: 500 20px/1 var(--f-d); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+.top-r { display: flex; align-items: center; gap: 12px; }
+.langs { display: flex; padding: 3px; border: 1px solid var(--line); }
+.langs button { min-width: 36px; min-height: 32px; padding-top: 3px; border: 0; background: none; color: var(--mute); font: 500 17px/1 var(--f-d); letter-spacing: .06em; }
+.langs button[aria-pressed="true"] { background: var(--washi); color: var(--lac); }
+@media (hover: hover) and (pointer: fine) { .nav a { transition: color .3s; } .nav a:hover { color: var(--washi); } }
+@media (max-width: 980px) { .nav { display: none; } }
+@media (max-width: 400px) { .top-r .btn-sm { display: none; } }
+
+/* ---------- pergamino colgado (reutilizable) ---------- */
+.hang { position: relative; margin: 0; padding-top: 64px; transform-origin: 50% 6px; will-change: transform; --ar: 3 / 4; }
+.nail { position: absolute; z-index: 2; top: 0; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #9a948d, #2a2624 70%); box-shadow: 0 3px 6px #000c; }
+.cord { position: absolute; top: 6px; left: 14%; right: 14%; height: 60px; pointer-events: none;
+  background: linear-gradient(to top right, #0000 calc(50% - 1px), var(--washi-2) 50%, #0000 calc(50% + 1px)) left / 50% 100% no-repeat, linear-gradient(to top left, #0000 calc(50% - 1px), var(--washi-2) 50%, #0000 calc(50% + 1px)) right / 50% 100% no-repeat; }
+.scroll { position: relative; filter: drop-shadow(0 30px 30px #000a); }
+.rod { position: relative; z-index: 1; display: block; height: 16px; margin: 0 -14px; border-radius: 8px; background: linear-gradient(#4a3c33, #120d0a 55%, #2e241e); }
+.rod::before, .rod::after { content: ""; position: absolute; top: -3px; width: 10px; height: 22px; border-radius: 4px; background: linear-gradient(90deg, #8a7a66, #3a3028); }
+.rod::before { left: -6px; } .rod::after { right: -6px; }
+.paper { position: relative; padding: 30px 16px 34px; background: linear-gradient(var(--shu), var(--shu)) 0 11px / 100% 5px no-repeat, linear-gradient(var(--shu), var(--shu)) 0 calc(100% - 13px) / 100% 5px no-repeat, var(--washi); }
+.paper img { width: 100%; aspect-ratio: var(--ar); object-fit: cover; }
+.hang figcaption { margin-top: 16px; text-align: center; font: 500 24px/1 var(--f-d); letter-spacing: .08em; text-transform: uppercase; color: var(--washi-2); }
+
+/* ---------- portada ---------- */
+.hero { position: relative; min-height: 100svh; display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 30px clamp(24px, 5vw, 80px); padding: 96px var(--pad) clamp(30px, 5vh, 60px); overflow: hidden; isolation: isolate;
+  background: radial-gradient(ellipse 60% 70% at 72% 40%, #2a1f1a 0%, #0e0c0b 70%); }
+.eyebrow { margin: 0 0 6px; font: 500 22px/1 var(--f-d); letter-spacing: .14em; text-transform: uppercase; color: var(--shu); }
+.mega { margin: 0; font: 600 clamp(84px, 10.5vw, 200px)/.82 var(--f-d); text-transform: uppercase; letter-spacing: .005em; white-space: nowrap; }
+.mega span { display: inline-block; }
+.mega span + span { margin-left: .2em; color: var(--shu); }
+.hero h1 { margin-top: 18px; max-width: 22ch; font: 400 clamp(24px, 2.2vw, 36px)/1.2 var(--f-b); }
+.hero-p { margin: 14px 0 0; max-width: 46ch; color: var(--mute); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.hero-rate { margin: 20px 0 0; font-size: 15px; color: var(--mute); }
+.hero-rate b { font: 600 30px/1 var(--f-d); color: var(--washi); }
+.hang-hero { justify-self: center; width: min(30vw, calc((100svh - 200px) * .6), 440px); --ar: 3 / 4; }
+.hanko { position: absolute; right: 26px; bottom: 44px; display: grid; place-items: center; width: 62px; height: 62px; padding-top: 4px; background: var(--shu); color: var(--washi); rotate: -5deg; box-shadow: inset 0 0 0 3px var(--shu), inset 0 0 0 5px #eee2cb66; font-family: var(--f-d); line-height: .8; text-transform: uppercase; }
+.hanko b { font-size: 34px; font-weight: 600; }
+.hanko small { font-size: 13px; letter-spacing: .08em; }
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; padding-top: 90px; }
+  .hang-hero { order: -1; width: min(72vw, 340px); }
+  .mega { font-size: 20vw; }
+}
+
+/* ---------- trabajos ---------- */
+.trabajos { padding: clamp(90px, 11vw, 160px) var(--pad); background: linear-gradient(#0e0c0b, #15110f); text-align: center; overflow: hidden; }
+.t-head { margin-bottom: clamp(30px, 4vw, 60px); }
+.t-head p { margin: 14px auto 0; max-width: 46ch; color: var(--mute); }
+.wall { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 30px clamp(24px, 4vw, 64px); }
+.w1 { width: clamp(260px, 30vw, 430px); --ar: 1 / 1; }
+.w2 { width: clamp(170px, 16vw, 250px); --ar: 9 / 16; margin-top: 70px; }
+.w3 { width: clamp(160px, 14vw, 220px); --ar: 9 / 16; }
+.w4 { width: clamp(230px, 24vw, 340px); --ar: 1 / 1; margin-top: 90px; }
+.w5 { width: clamp(170px, 16vw, 250px); --ar: 9 / 16; margin-top: 30px; }
+@media (max-width: 760px) {
+  .wall { gap: 26px 30px; }
+  .rod { margin: 0 -8px; } .rod::before { left: -4px; } .rod::after { right: -4px; }
+  .wall .hang { width: calc(50% - 15px); margin-top: 0; }
+  .wall .w1 { width: min(100% - 24px, 340px); }
+  .paper { padding: 24px 10px 28px; }
+  .hang figcaption { font-size: 20px; }
+}
+
+/* ---------- el estudio ---------- */
+.estudio { padding: clamp(90px, 11vw, 150px) var(--pad); background: var(--washi); color: var(--lac); }
+.estudio h2 { max-width: 12ch; margin-bottom: clamp(30px, 4vw, 56px); }
+.e-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 5vw, 80px); max-width: 1100px; }
+.e-cols p { margin: 0; font-size: 20px; color: #3b332c; }
+@media (max-width: 760px) { .e-cols { grid-template-columns: 1fr; } }
+
+/* ---------- 15 años ---------- */
+.aniversario { padding: clamp(80px, 10vw, 140px) 0; background: var(--sumi); overflow: hidden; }
+.names { --mq: 50s; margin-bottom: clamp(40px, 6vw, 80px); }
+.names .mq-t { align-items: center; }
+.names span { padding: 0 .35em; font: 600 clamp(56px, 8vw, 130px)/1 var(--f-d); text-transform: uppercase; color: transparent; -webkit-text-stroke: 1px var(--washi-2); }
+.names i { width: 14px; height: 14px; background: var(--shu); rotate: 45deg; }
+.a-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(28px, 5vw, 90px); align-items: center; padding: 0 var(--pad); }
+.poster { margin: 0; }
+.poster img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.date { margin: 0 0 8px; font: 600 clamp(40px, 4.4vw, 70px)/1 var(--f-d); color: var(--shu); letter-spacing: .04em; }
+.a-txt h2 { max-width: 9em; margin-bottom: 22px; }
+.a-txt p:last-child { margin: 0; max-width: 52ch; color: var(--mute); }
+@media (max-width: 760px) { .a-grid { grid-template-columns: 1fr; } .poster { max-width: 320px; } }
+
+/* ---------- pide cita ---------- */
+.cita { padding: clamp(90px, 11vw, 150px) var(--pad); background: var(--lac); }
+.cita h2 { margin-bottom: clamp(30px, 4vw, 56px); }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 3vw, 40px); margin: 0 0 40px; padding: 0; list-style: none; }
+.steps li { padding-top: 18px; border-top: 1px solid var(--line); }
+.steps b { display: block; font: 600 clamp(80px, 9vw, 140px)/.8 var(--f-d); color: transparent; -webkit-text-stroke: 1px var(--shu); }
+.steps h3 { margin: 10px 0 8px; font-size: clamp(32px, 3vw, 46px); }
+.steps p { margin: 0; color: var(--mute); }
+.c-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.c-cta .btn-line { text-transform: none; font: 400 16px/1 var(--f-b); letter-spacing: 0; padding-top: 0; }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+
+/* ---------- visita ---------- */
+.visita { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(28px, 5vw, 80px); padding: clamp(80px, 10vw, 130px) var(--pad); background: var(--washi); color: var(--lac); }
+.visita h2 { font-size: clamp(48px, 6vw, 96px); margin-bottom: 26px; }
+.visita dl { display: grid; grid-template-columns: auto 1fr; gap: 12px 24px; margin: 0; }
+.visita dt { font: 500 20px/1.3 var(--f-d); letter-spacing: .08em; text-transform: uppercase; color: #6f6458; }
+.visita dd { margin: 0; overflow-wrap: anywhere; }
+.v-map { min-height: 380px; }
+@media (max-width: 860px) { .visita { grid-template-columns: 1fr; } .visita dl { grid-template-columns: 1fr; gap: 2px; } .visita dd { margin-bottom: 12px; } }
+
+/* ---------- pie ---------- */
+.foot { padding: clamp(40px, 6vw, 70px) var(--pad) 26px; background: var(--lac); color: var(--mute); overflow: hidden; }
+.foot-word { margin: 0 0 18px; font: 600 clamp(100px, 22vw, 380px)/.8 var(--f-d); text-transform: uppercase; color: var(--washi); white-space: nowrap; }
+.foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: 14px; }
+.foot-row p { margin: 0; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 18px; }
+.foot-links a, .foot-links button { color: inherit; font: inherit; background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 3px; }
+
+/* cursor de máquina de tatuar (no cambiar) */
+html,body,*,*::before,*::after{cursor:url("../assets/cursor.png?v=3") 5 27,auto!important;cursor:-webkit-image-set(url("../assets/cursor.png?v=3") 1x,url("../assets/cursor@2x.png?v=3") 2x) 5 27,auto!important;cursor:image-set(url("../assets/cursor.png?v=3") 1x,url("../assets/cursor@2x.png?v=3") 2x) 5 27,auto!important}
